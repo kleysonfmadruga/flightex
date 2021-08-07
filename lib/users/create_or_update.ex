@@ -1,7 +1,7 @@
 defmodule Flightex.Users.CreateOrUpdate do
   @moduledoc ~S"""
   Provides a function to facilitate the User struct creation
-  and saving on the Agent.
+  and saving in the Agent.
   """
 
   alias Flightex.Users.Agent, as: UserAgent
