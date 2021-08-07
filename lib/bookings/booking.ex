@@ -17,7 +17,7 @@ defmodule Flightex.Bookings.Booking do
           user_id: String.t()
         }
 
-  @doc """
+  @doc ~S"""
   Builds a Booking struct with the given date and time, place of origin,
   destination and user id.
 
