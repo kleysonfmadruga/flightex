@@ -1,33 +1,42 @@
 defmodule Flightex.Bookings.CreateOrUpdateTest do
   use ExUnit.Case, async: false
 
-  alias Flightex.Bookings.{Agent, CreateOrUpdate}
+  alias Flightex.Bookings.Agent, as: BookingAgent
+  alias Flightex.Bookings.CreateOrUpdate, as: UpsertBooking
+  alias Flightex.Users.Agent, as: UserAgent
+
+  import Flightex.Factory
 
   describe "call/1" do
     setup do
-      Agent.start_link(%{})
+      Flightex.start_agents()
 
-      :ok
+      {_ok, %Flightex.Users.User{id: id}} =
+        :users
+        |> build()
+        |> UserAgent.save()
+
+      {:ok, user_id: id}
     end
 
-    test "when all params are valid, returns a valid tuple" do
+    test "when all params are valid, returns a valid tuple", %{user_id: user_id} do
       params = %{
         complete_date: ~N[2001-05-07 03:05:00],
         local_origin: "Brasilia",
         local_destination: "Bananeiras",
-        user_id: "e9f7d281-b9f2-467f-9b34-1b284ed58f9e",
+        user_id: user_id
       }
 
-      {:ok, uuid} = CreateOrUpdate.call(params)
+      {:ok, uuid} = UpsertBooking.call(params)
 
-      {:ok, response} = Agent.get(uuid)
+      {:ok, response} = BookingAgent.get(uuid)
 
       expected_response = %Flightex.Bookings.Booking{
         id: response.id,
         complete_date: ~N[2001-05-07 03:05:00],
         local_destination: "Bananeiras",
         local_origin: "Brasilia",
-        user_id: "e9f7d281-b9f2-467f-9b34-1b284ed58f9e"
+        user_id: user_id
       }
 
       assert response == expected_response

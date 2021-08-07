@@ -1,7 +1,7 @@
 defmodule Flightex.Users.CreateOrUpdateTest do
   use ExUnit.Case, async: true
 
-  alias Flightex.Users.{Agent, CreateOrUpdate}
+  alias Flightex.Users.{Agent, CreateOrUpdate, User}
 
   describe "call/1" do
     setup do
@@ -18,9 +18,9 @@ defmodule Flightex.Users.CreateOrUpdateTest do
         cpf: "12345678900"
       }
 
-      CreateOrUpdate.call(params)
+      {_ok, %User{id: id}} = CreateOrUpdate.call(params)
 
-      {_ok, response} = Agent.get(params.cpf)
+      {_ok, response} = Agent.get(id)
 
       expected_response = %Flightex.Users.User{
         cpf: "12345678900",

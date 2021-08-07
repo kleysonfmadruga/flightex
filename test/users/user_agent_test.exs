@@ -20,8 +20,7 @@ defmodule Flightex.Users.AgentTest do
       |> build(id: id, cpf: cpf)
       |> UserAgent.save()
 
-      response = UserAgent.get(cpf)
-
+      response = UserAgent.get(id)
 
       expected_response =
         {:ok, %Flightex.Users.User{cpf: cpf, email: "jp@banana.com", id: id, name: "Jp"}}
@@ -45,7 +44,7 @@ defmodule Flightex.Users.AgentTest do
       |> build(id: id, cpf: cpf)
       |> UserAgent.save()
 
-      response = UserAgent.get(cpf)
+      response = UserAgent.get(id)
 
       expected_response =
         {:ok, %Flightex.Users.User{cpf: cpf, email: "jp@banana.com", id: id, name: "Jp"}}
