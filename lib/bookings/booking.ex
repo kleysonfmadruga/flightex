@@ -1,5 +1,5 @@
 defmodule Flightex.Bookings.Booking do
-  @moduledoc """
+  @moduledoc ~S"""
   Booking is a struct that represents an user booking that
   have a date, a place of origin, a destination and an user
   id in the Flightex application.
