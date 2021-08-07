@@ -1,6 +1,6 @@
 defmodule Flightex.Users.Agent do
   @moduledoc ~S"""
-  Provides a set of functions to save and get User structs in a Agent
+  Provides a set of functions to save and get User structs in an Agent
   """
 
   use Agent
