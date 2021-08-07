@@ -25,7 +25,8 @@ defmodule Flightex.Users.CreateOrUpdate do
       iex> Flightex.Users.CreateOrUpdate.call(user_data)
       {:error, "Cpf must be a String"}
   """
-  @spec call(%{name: String.t(), email: String.t(), cpf: String.t()}) :: {:ok, User.t()} | {:error, String.t()}
+  @spec call(%{name: String.t(), email: String.t(), cpf: String.t()}) ::
+          {:ok, User.t()} | {:error, String.t()}
   def call(%{name: name, email: email, cpf: cpf}) do
     case User.build(name, email, cpf) do
       {:ok, user} -> UserAgent.save(user)
